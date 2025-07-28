@@ -5,3 +5,7 @@ This capstone project is meant to manage an everyday pantry and the items includ
 
 Resources Used:
 ChatGPT for error fixes (multi-file usage, class method definition)
+W3 Schools for vector implementation
+
+Optional Summary:
+The main method writing, method definitions, and header files all went well, though the implementation for the multiple files was difficult to get right. It all came together in the end though! :D
