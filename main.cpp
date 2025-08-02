@@ -5,65 +5,9 @@
 
 using std::cout, std::endl, std::cin;
 
-//Item Implementation
-//Constructors
-Item::Item() : type(""), name(""), daysTilExp(0), loc(""){}
-Item::Item(std::string t, std::string n, int d, std::string l) : type(t), name(n), daysTilExp(d), loc(l){}
 
-//Getters
-std::string Item::getType() const { return type; }
-std::string Item::getName() const { return name; }
-int Item::getDaysTilExp() const { return daysTilExp; }
-std::string Item::getLoc() const{ return loc; }
-//Setters
-void Item::setType(const std::string& t) { type = t; }
-void Item::setName(const std::string& n) { name = n; }
-void Item::setDaysTilExp(int d) { daysTilExp = d; }
-void Item::setLoc(const std::string& l) { loc = l; }
-//Operator Overloads
-std::ostream& operator<<(std::ostream& os, const Item& item){
-    os << "Item [Name: " << item.name << ", Type: " << item.type << ", Days Until Expiration: " << item.daysTilExp << ", Location: " << item.loc << "]";
-    return os;
-}
-bool operator==(const Item& item1, const Item& item2){
-    return item1.name == item2.name &&
-           item1.type == item2.type &&
-           item1.daysTilExp == item2.daysTilExp &&
-           item1.loc == item2.loc;
-}
 
-//Pantry Implementation
-//Contructors
-Pantry::Pantry(){}
-Pantry::Pantry(std::vector<Item> items){ pantry = items; }
 
-//Methods
-void Pantry::addItem(Item& item){ pantry.push_back(item); }
-
-void Pantry::editItem(Item& edItem, int ind){ pantry.at(ind) = edItem; }
-bool Pantry::deleteItem(int ind){
-    if(ind >= 0 && ind < pantry.size()){
-        pantry.erase(pantry.begin() + ind);
-        return true;
-    }
-    return false;
-}
-std::vector<Item> Pantry::getPantry(){ return pantry; }
-//Operator Overloads
-std::ostream& operator<<(std::ostream& os, const Pantry& pant){
-    os << "Pantry {\n";
-    for(int i = 0; i < pant.pantry.size(); i++){
-        if(i != pant.pantry.size()-1){
-            os << "   " << pant.pantry.at(i) << "\n";
-        }
-        else{
-            os << "   " << pant.pantry.at(i);
-        }
-    }
-    os << "\n}";
-    return os;
-}
-bool operator==(const Pantry& p1, const Pantry& p2) { return p1.pantry == p2.pantry; }
 int main() {
     //Item test (Phase 01)
     Item item1("Grain", "Bread", 5, "Counter");
@@ -77,14 +21,16 @@ int main() {
     cout << "Items 2 and 3:\n" << item2 << "\n" << item3 << "\nEquality: " << (item2 == item3);
 
     //Pantry Test (Phase 02)
-    Pantry p1({item1, item2});
+    Pantry p1;
     int choice;
+    while(true){
     cout << "\n\n~~~PHASE 02 MENU~~~\n";
     cout << "Please select from the following choices:\n";
     cout << "1) Add an item to the pantry\n";
     cout << "2) Delete an item in the pantry\n";
     cout << "3) Modify an item in the pantry\n";
-    cout << "4) Show all items in the pantry\n>>";
+    cout << "4) Show all items in the pantry\n";
+    cout << "5) Exit\n>>";
     cin >> choice;
 
     if(choice == 1){
@@ -148,8 +94,13 @@ int main() {
     else if (choice == 4){
         cout << "\nCurrent pantry contents:\n" << p1 << "\n";
     }
+    else if(choice == 5){
+        cout << "You Exited the Project!";
+        break;
+    }
     else{
-        cout << "\nError, Invalid option\n";
+        cout << "Invalid Input!\n";
+    }
     }
     return 0;
 }
